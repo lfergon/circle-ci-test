@@ -8,8 +8,14 @@ jobs:
     working_directory: ~/job
   save_hello_world_output:
     <<: *defaults
+    commands:
+      print_pipeline_id:
+        description: "an example of command on circle ci"
+        steps:
+          - run: echo $CIRCLE_WORKFLOW_ID
     steps:
       - run: echo "hello world" > output.txt
+      - print_pipeline_id
       - persist_to_workspace:
           root: ~/job/
           paths:
