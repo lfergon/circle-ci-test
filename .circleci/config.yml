@@ -8,7 +8,7 @@ jobs:
     steps:
       - run: echo "hello world" > output.txt
       - persist_to_workspace:
-          root: ~/
+          root: <<parameters.output_dir>>
           paths:
             - output.txt
   print_output_file:
@@ -17,7 +17,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cat ~/output.txt
+      - run: cat <<parameters.output_dir>>/output.txt
 workflows:
   # Name the workflow "welcome"
   sharing_files:
