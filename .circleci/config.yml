@@ -2,10 +2,12 @@
 version: 2.1
 # Orchestrate or schedule a set of jobs
 jobs:
-  save_hello_world_output:
+  defaults: &defaults
     docker:
       - image: circleci/node:13.8.0
     working_directory: ~/job
+  save_hello_world_output:
+    <<: *defaults
     steps:
       - run: echo "hello world" > output.txt
       - persist_to_workspace:
@@ -13,8 +15,7 @@ jobs:
           paths:
             - output.txt
   print_output_file:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - attach_workspace:
           at: ~/job
