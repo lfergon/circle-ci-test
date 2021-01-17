@@ -8,7 +8,7 @@ jobs:
     steps:
       - run: echo "hello world" > output.txt
       - persist_to_workspace:
-          root: ~/
+          root: /home/circleci/
           paths:
             - output.txt
   print_output_file:
@@ -16,8 +16,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
-          at: ~/
-      - run: cat ~/
+          at: /home/circleci/
+      - run: cat /home/circleci/output.txt
 workflows:
   # Name the workflow "welcome"
   sharing_files:
