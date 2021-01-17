@@ -32,6 +32,15 @@ jobs:
           at: ~/job
       - run: cat ~/job/output.txt
 
+  job_to_fail:
+    <<: *defaults
+    steps:
+      - run: return 1
+      - run:
+          name: on error
+          command: echo "previos job failed"
+          when: on_fail
+
 workflows:
   # Name the workflow "welcome"
   sharing_files:
@@ -41,3 +50,4 @@ workflows:
       - print_output_file:
           requires:
             - save_hello_world_output
+      - job_to_fail
